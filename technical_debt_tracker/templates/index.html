@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Technical Debt Tracker</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="top-bar">
+        <h1>Technical Debt Tracker</h1>
+        <a href="/add" class="btn">+ Add Technical Debt</a>
+    </div>
+
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Severity</th>
+            <th>Status</th>
+            <th>Deadline</th>
+            <th>Action</th>
+        </tr>
+
+        {% for debt in debts %}
+        <tr class="{{ debt.alert }}">
+            <td>{{ debt.title }}</td>
+            <td>{{ debt.severity }}</td>
+            <td>
+                {% if debt.status == "Resolved" %}
+                    <span class="status status-resolved">Resolved</span>
+                {% else %}
+                    <span class="status status-open">Open</span>
+                {% endif %}
+            </td>
+            <td>
+                {{ debt.deadline }} <br>
+                {% if debt.alert == "warning" %}
+                    <span class="alert-text alert-warning">⚠ Due Soon</span>
+                {% elif debt.alert == "overdue" %}
+                    <span class="alert-text alert-overdue">❌ Overdue</span>
+                {% endif %}
+            </td>
+            <td>
+    {% if debt.status != "Resolved" %}
+        <a href="/resolve/{{ debt.id }}">Mark Resolved</a> |
+    {% endif %}
+    <a href="/delete/{{ debt.id }}"
+       onclick="return confirm('Are you sure you want to delete this entry?');">
+       Delete
+    </a>
+</td>
+
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+
+</body>
+</html>

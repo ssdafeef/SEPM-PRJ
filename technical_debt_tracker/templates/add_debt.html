@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Technical Debt</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Add Technical Debt</h1>
+
+    <form method="post">
+        <label>Title</label>
+        <input type="text" name="title" required>
+
+        <label>Description</label>
+        <textarea name="description" required></textarea>
+
+        <label>Severity</label>
+        <select name="severity">
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+        </select>
+
+        <label>Deadline</label>
+        <input type="date" name="deadline" required>
+
+        <button type="submit">Add Debt</button>
+    </form>
+
+    <a href="/" class="back-link">⬅ Back to Dashboard</a>
+</div>
+
+</body>
+</html>
