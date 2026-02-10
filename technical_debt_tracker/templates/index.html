@@ -3,6 +3,9 @@
 <head>
     <title>Technical Debt Tracker</title>
     <link rel="stylesheet" href="/static/style.css">
+    <button class="btn1" onclick="toggleDarkMode()">🌙</button>
+           
+
 </head>
 <body>
 
@@ -10,8 +13,32 @@
 
     <div class="top-bar">
         <h1>Technical Debt Tracker</h1>
-        <a href="/add" class="btn">+ Add Technical Debt</a>
+        <a href="/add" class="add">+ Add Technical Debt</a>
+         
+
     </div>
+    <div class="dashboard">
+    <div class="card card-total">
+        <h2>{{ total_count }}</h2>
+        <p>Total Debts</p>
+    </div>
+
+    <div class="card card-open">
+        <h2>{{ open_count }}</h2>
+        <p>Open Debts</p>
+    </div>
+
+    <div class="card card-resolved">
+        <h2>{{ resolved_count }}</h2>
+        <p>Resolved Debts</p>
+    </div>
+
+    <div class="card card-overdue">
+        <h2>{{ overdue_count }}</h2>
+        <p>Overdue Debts</p>
+    </div>
+</div>
+
 
     <table>
         <tr>
@@ -25,7 +52,16 @@
         {% for debt in debts %}
         <tr class="{{ debt.alert }}">
             <td>{{ debt.title }}</td>
-            <td>{{ debt.severity }}</td>
+            <td>
+    {% if debt.severity == "Low" %}
+        <span class="severity severity-low">Low</span>
+    {% elif debt.severity == "Medium" %}
+        <span class="severity severity-medium">Medium</span>
+    {% elif debt.severity == "High" %}
+        <span class="severity severity-high">High</span>
+    {% endif %}
+</td>
+
             <td>
                 {% if debt.status == "Resolved" %}
                     <span class="status status-resolved">Resolved</span>
@@ -56,6 +92,22 @@
     </table>
 
 </div>
+<script>
+    function toggleDarkMode() {
+        document.body.classList.toggle("dark");
+
+        if (document.body.classList.contains("dark")) {
+            localStorage.setItem("theme", "dark");
+        } else {
+            localStorage.setItem("theme", "light");
+        }
+    }
+
+    // Apply saved theme on reload
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark");
+    }
+</script>
 
 </body>
 </html>

@@ -2,13 +2,16 @@
 <html>
 <head>
     <title>Add Technical Debt</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/style2.css">
+        <button class="btn1" onclick="toggleDarkMode()">🌙</button>
+
 </head>
 <body>
 
 <div class="container">
     <h1>Add Technical Debt</h1>
 
+    <div class="label">
     <form method="post">
         <label>Title</label>
         <input type="text" name="title" required>
@@ -24,13 +27,28 @@
         </select>
 
         <label>Deadline</label>
-        <input type="date" name="deadline" required>
-
+        <input type="date" name="deadline" required> 
         <button type="submit">Add Debt</button>
-    </form>
+    </form></div>
+
 
     <a href="/" class="back-link">⬅ Back to Dashboard</a>
 </div>
+<script>
+    function toggleDarkMode() {
+        document.body.classList.toggle("dark");
 
+        if (document.body.classList.contains("dark")) {
+            localStorage.setItem("theme", "dark");
+        } else {
+            localStorage.setItem("theme", "light");
+        }
+    }
+
+    // Apply saved theme on reload
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark");
+    }
+</script>
 </body>
 </html>
